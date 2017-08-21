@@ -57,6 +57,15 @@ class LaravelLogViewer
     const MAX_FILE_SIZE = 52428800; // Why? Uh... Sorry
 
     /**
+     * 设置log的目录
+     */
+    public static function logpath()
+    {
+//        $logsPath = storage_path('logs');
+        return '/var/log/laravel/cms';
+    }
+
+    /**
      * @param string $file
      */
     public static function setFile($file)
@@ -75,7 +84,7 @@ class LaravelLogViewer
      */
     public static function pathToLogFile($file)
     {
-        $logsPath = storage_path('logs');
+        $logsPath = self::logpath();
 
         if (app('files')->exists($file)) { // try the absolute path
             return $file;
@@ -162,7 +171,8 @@ class LaravelLogViewer
      */
     public static function getFiles($basename = false)
     {
-        $files = glob(storage_path() . '/logs/*.log');
+        $path = self::logpath();
+        $files = glob($path.'/*.log');
         $files = array_reverse($files);
         $files = array_filter($files, 'is_file');
         if ($basename && is_array($files)) {
