@@ -1,12 +1,12 @@
 {
     "name": "rap2hpoutre/laravel-log-viewer",
-    "description": "A Laravel log reader",
+    "description": "A Laravel log reader, based on @https://github.com/rap2hpoutre/laravel-log-viewer",
     "license": "MIT",
     "keywords": ["log", "log-reader", "log-viewer", "logging", "laravel", "lumen"],
     "authors": [
         {
-            "name": "rap2hpoutre",
-            "email": "raphaelht@gmail.com"
+            "name": "bruce",
+            "email": "heyuan110@gmail.com"
         }
     ],
     "require": {
