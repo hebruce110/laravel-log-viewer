@@ -1,5 +1,5 @@
 {
-    "name": "rap2hpoutre/laravel-log-viewer",
+    "name": "patpat/laravel-log-viewer",
     "description": "A Laravel log reader, based on @https://github.com/rap2hpoutre/laravel-log-viewer",
     "license": "MIT",
     "keywords": ["log", "log-reader", "log-viewer", "logging", "laravel", "lumen"],
