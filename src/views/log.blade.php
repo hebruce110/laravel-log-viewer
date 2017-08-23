@@ -53,6 +53,9 @@
     <div class="col-sm-4 col-md-3 sidebar">
       <h1><span class="glyphicon glyphicon-calendar" aria-hidden="true"></span> Laravel Log Viewer</h1>
       <div class="list-group">
+           <?php
+             rsort($files);
+          ?>
         @foreach($files as $file)
           <a href="?l={{ base64_encode($file) }}"
              class="list-group-item @if ($current_file == $file) llv-active @endif">
@@ -105,7 +108,7 @@
         @if($current_file)
           <a href="?dl={{ base64_encode($current_file) }}"><span class="glyphicon glyphicon-download-alt"></span>
             Download file</a>
-          // -
+          {{-----}}
           {{--<a id="delete-log" href="?del={{ base64_encode($current_file) }}"><span--}}
                 {{--class="glyphicon glyphicon-trash"></span> Delete file</a>--}}
           {{--@if(count($files) > 1)--}}
