@@ -18,7 +18,6 @@ class LogViewerController extends BaseController
 
     public function index()
     {
-
         if ($this->request->input('l')) {
             LaravelLogViewer::setFile(base64_decode($this->request->input('l')));
         }
@@ -38,7 +37,8 @@ class LogViewerController extends BaseController
         return app('view')->make('laravel-log-viewer::log', [
             'logs' => LaravelLogViewer::all(),
             'files' => LaravelLogViewer::getFiles(true),
-            'current_file' => LaravelLogViewer::getFileName()
+//            'current_file' => LaravelLogViewer::getFileName()
+            'current_file' => LaravelLogViewer::getActionFileName()
         ]);
     }
 

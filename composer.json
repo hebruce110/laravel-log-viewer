@@ -1,12 +1,12 @@
 {
     "name": "patpat/laravel-log-viewer",
-    "description": "A Laravel log reader, based on @https://github.com/rap2hpoutre/laravel-log-viewer",
+    "description": "根据rap2hpoutre修改，增加了自定义log路径和读取子目录日志, thanks for rap2hpoutre",
     "license": "MIT",
     "keywords": ["log", "log-reader", "log-viewer", "logging", "laravel", "lumen"],
     "authors": [
         {
             "name": "bruce",
-            "email": "heyuan110@gmail.com"
+            "email": "bruce.he@patpat.com"
         }
     ],
     "require": {

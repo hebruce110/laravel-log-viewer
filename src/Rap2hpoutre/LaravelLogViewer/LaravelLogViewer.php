@@ -61,8 +61,7 @@ class LaravelLogViewer
      */
     public static function logpath()
     {
-//        $logsPath = storage_path('logs');
-        return '/var/log/laravel/cms';
+        return $logsPath = config('log-viewer.log_path') ?: storage_path('logs');
     }
 
     /**
@@ -93,9 +92,9 @@ class LaravelLogViewer
         $file = $logsPath . '/' . $file;
 
         // check if requested file is really in the logs directory
-        if (dirname($file) !== $logsPath) {
-            throw new \Exception('No such log file');
-        }
+//        if (dirname($file) !== $logsPath) {
+//            throw new \Exception('No such log file');
+//        }
 
         return $file;
     }
@@ -106,6 +105,15 @@ class LaravelLogViewer
     public static function getFileName()
     {
         return basename(self::$file);
+    }
+
+    /**
+     * 获取执行操作时的文件名
+     * @return mixed
+     */
+    public static function getActionFileName()
+    {
+        return str_replace(self::logpath().'/', '', self::$file);
     }
 
     /**
@@ -161,7 +169,6 @@ class LaravelLogViewer
                 }
             }
         }
-
         return array_reverse($log);
     }
 
@@ -171,15 +178,67 @@ class LaravelLogViewer
      */
     public static function getFiles($basename = false)
     {
+        $files = array();
         $path = self::logpath();
-        $files = glob($path.'/*.log');
+        $files = LaravelLogViewer::getFileArray($path);//dd($files);
+//        $files = glob(storage_path() . '/logs/*.log');
         $files = array_reverse($files);
         $files = array_filter($files, 'is_file');
         if ($basename && is_array($files)) {
             foreach ($files as $k => $file) {
-                $files[$k] = basename($file);
+                if (pathinfo($file, PATHINFO_EXTENSION) != 'log') {
+                    unset($files[$k]);
+                }else{
+                    $files[$k] = str_replace($path.'/', '', $file);//.basename($file);
+                }
             }
         }
         return array_values($files);
+    }
+
+    public static function getFileArray($path)
+    {
+        $files = [];
+        if(!is_dir($path)) {
+            return $files;
+        }
+        $handle = opendir($path);
+        if($handle) {
+            while(false !== ($file = readdir($handle))) {
+                if ($file != '.' && $file != '..') {
+                    $filename = $path . "/"  . $file;
+                    if(is_file($filename)) {
+                        $files[] = $filename;
+                    }else {
+                        $files = array_merge($files, LaravelLogViewer::getFileArray($filename));
+                    }
+                }
+            }   //  end while
+            closedir($handle);
+        }
+        return $files;
+    }
+// 该方法为备份，为修改成下拉列表显示准备的
+    public static function getFileArrayBack($path, $level=0)
+    {
+        $files = [];
+        if(!is_dir($path)) {
+            return $files;
+        }
+        $handle = opendir($path);
+        if($handle) {
+            while(false !== ($file = readdir($handle))) {
+                if ($file != '.' && $file != '..') {
+                    $filename = $path . "/"  . $file;
+                    if(is_file($filename)) {
+                        $files[$level][] = $filename;
+                    }else {
+                        $files = array_merge($files, LaravelLogViewer::getFileArrayBack($filename, $level++));
+                    }
+                }
+            }   //  end while
+            closedir($handle);
+        }
+        return $files;
     }
 }
