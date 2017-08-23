@@ -50,9 +50,8 @@
 <body>
 <div class="container-fluid">
   <div class="row">
-    <div class="col-sm-3 col-md-2 sidebar">
+    <div class="col-sm-4 col-md-3 sidebar">
       <h1><span class="glyphicon glyphicon-calendar" aria-hidden="true"></span> Laravel Log Viewer</h1>
-      <p class="text-muted"><i>by Rap2h</i></p>
       <div class="list-group">
         @foreach($files as $file)
           <a href="?l={{ base64_encode($file) }}"
@@ -62,7 +61,7 @@
         @endforeach
       </div>
     </div>
-    <div class="col-sm-9 col-md-10 table-container">
+    <div class="col-sm-8 col-md-9 table-container">
       @if ($logs === null)
         <div>
           Log file >50M, please download it.
@@ -106,13 +105,13 @@
         @if($current_file)
           <a href="?dl={{ base64_encode($current_file) }}"><span class="glyphicon glyphicon-download-alt"></span>
             Download file</a>
-          -
-          <a id="delete-log" href="?del={{ base64_encode($current_file) }}"><span
-                class="glyphicon glyphicon-trash"></span> Delete file</a>
-          @if(count($files) > 1)
-            -
-            <a id="delete-all-log" href="?delall=true"><span class="glyphicon glyphicon-trash"></span> Delete all files</a>
-          @endif
+          // -
+          {{--<a id="delete-log" href="?del={{ base64_encode($current_file) }}"><span--}}
+                {{--class="glyphicon glyphicon-trash"></span> Delete file</a>--}}
+          {{--@if(count($files) > 1)--}}
+            {{-----}}
+            {{--<a id="delete-all-log" href="?delall=true"><span class="glyphicon glyphicon-trash"></span> Delete all files</a>--}}
+          {{--@endif--}}
         @endif
       </div>
     </div>
